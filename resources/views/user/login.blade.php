@@ -1,30 +1,41 @@
-<h2>Admin Login</h2>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Login</title>
+</head>
+<body>
+
+<h2>User Login</h2>
 
 @if($errors->any())
-    <div>
+    <div style="color: red;">
         @foreach($errors->all() as $error)
             <p>{{ $error }}</p>
         @endforeach
     </div>
 @endif
+
 @if(session('error'))
-    <div>
+    <div style="color: red;">
         <p>{{ session('error') }}</p>
     </div>
 @endif
+
 @if(session('success'))
-    <div>
+    <div style="color: green;">
         <p>{{ session('success') }}</p>
     </div>
 @endif
 
-<form action="{{ route('admin_login_submit')}}" method="post">
+<form action="{{ route('login_submit') }}" method="POST">
     @csrf
     <table>
         <tr>
             <td>Email:</td>
             <td>
-                <input type="text" name="email" placeholder="Email">
+                <input type="email" name="email" placeholder="Email" value="{{ old('email') }}">
             </td>
         </tr>
         <tr>
@@ -42,8 +53,12 @@
         <tr>
             <td></td>
             <td>
-                <a href="{{ route('admin.forget_password') }}">Forgot Password?</a>
+                <a href="{{ route('forget_password') }}">Forgot Password?</a> |
+                <a href="{{ route('register') }}">Register here</a>
             </td>
         </tr>
     </table>
 </form>
+
+</body>
+</html>

@@ -20,11 +20,11 @@ return new class extends Migration
             $table->string('password');
             // $table->rememberToken();
             $table->string('phone');
-            $table->string('country');
-            $table->string('state');
-            $table->string('city');
-            $table->string('zip');
-            $table->string('token');
+            $table->string('country')->nullable();
+            $table->string('state')->nullable();
+            $table->string('city')->nullable();
+            $table->string('zip')->nullable();
+            $table->string('token')->nullable();
             $table->boolean('status')->default(0)->comment('0 = inactive, 1 = active,2=suspended');
             $table->timestamps();
         });
