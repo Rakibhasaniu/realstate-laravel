@@ -100,4 +100,43 @@ class UserController extends Controller
     public function reset_password(){
 
     }
+
+    public function profile(){
+        return view('user.profile');
+    }
+    public function profile_submit(Request $request){
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|email|unique:users,email,'.Auth::guard('web')->user()->id,
+            'phone' => 'required',
+            'password' => 'nullable|confirmed|min:6',
+        ]);
+
+        $user = Auth::guard('web')->user();
+
+        $data = [
+            'name' => $request->name,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'country' => $request->country,
+            'state' => $request->state,
+            'city' => $request->city,
+            'zip' => $request->zip,
+        ];
+
+        if($request->password){
+            $data['password'] = Hash::make($request->password);
+        }
+
+        if($request->hasFile('photo')){
+            $photo = $request->file('photo');
+            $filename = time().'_'.$photo->getClientOriginalName();
+            $photo->move(public_path('uploads'), $filename);
+            $data['photo'] = $filename;
+        }
+
+        $user->update($data);
+
+        return back()->with('success', 'Profile updated successfully');
+    }
 }

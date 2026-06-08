@@ -20,6 +20,8 @@ Route::get('/about', function () {
 
 Route::middleware('auth')->group(function(){
     Route::get('/dashboard',[UserController::class,'dashboard'])->name('user_dashboard');
+    Route::get('/profile',[UserController::class,'profile'])->name('profile');
+    Route::post('/profile_submit',[UserController::class,'profile_submit'])->name('profile_submit');
 });
     Route::get('/register', [UserController::class, 'register'])->name('register');
     Route::post('/register', [UserController::class, 'register_submit'])->name('register_submit');
@@ -33,6 +35,8 @@ Route::middleware('auth')->group(function(){
 //ADMIN
 Route::middleware('admin')->prefix('admin')->group(function(){
     Route::get('/dashboard',[AdminController::class,'dashboard'])->name('admin_dashboard');
+     Route::get('/admin_profile',[AdminController::class,'admin_profile'])->name('admin_profile');
+     Route::post('/admin_profile_submit',[AdminController::class,'admin_profile_submit'])->name('admin_profile_submit');
 });
 Route::prefix('admin')->group(function () {
     Route::get('/',function(){

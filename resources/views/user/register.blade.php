@@ -7,6 +7,8 @@
 </head>
 <body>
 
+@include('user.top')
+
 <h2>User Registration</h2>
 
 @if($errors->any())
